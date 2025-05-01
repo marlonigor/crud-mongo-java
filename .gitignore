@@ -1,0 +1,14 @@
+# NetBeans
+nbproject/private/
+build/
+dist/
+
+# Maven
+target/
+
+# Logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
