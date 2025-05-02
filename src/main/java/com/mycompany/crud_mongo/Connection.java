@@ -25,12 +25,22 @@ public class Connection {
             System.out.println("\n1) Adicionar  2) Listar  3) Atualizar  4) Deletar  5) Sair");
             op = scanner.nextLine();
             switch (op) {
-                case "1": adicionarContato(); break;
-                case "2": listarContatos(); break;
-                case "3": atualizarContato(); break;
-                case "4": deletarContato(); break;
-                case "5": break;
-                default: System.out.println("Opção inválida!"); 
+                case "1":
+                    adicionarContato();
+                    break;
+                case "2":
+                    listarContatos();
+                    break;
+                case "3":
+                    atualizarContato();
+                    break;
+                case "4":
+                    deletarContato();
+                    break;
+                case "5":
+                    break;
+                default:
+                    System.out.println("Opcao invalida!");
             }
         } while (!op.equals("5"));
         fechar();
@@ -42,7 +52,7 @@ public class Connection {
         System.out.print("Telefone: ");
         String telefone = scanner.nextLine();
         Document doc = new Document("nome", nome)
-                            .append("telefone", telefone);
+                .append("telefone", telefone);
         collection.insertOne(doc);
         System.out.println("Contato adicionado: " + doc.getObjectId("_id"));
     }
@@ -50,10 +60,10 @@ public class Connection {
     void listarContatos() {
         System.out.println("\n--- Contatos ---");
         for (Document doc : collection.find()) {
-            System.out.printf("%s | %s | %s%n",
-                doc.getObjectId("_id"),
-                doc.getString("nome"),
-                doc.getString("telefone"));
+            String nome = doc.getString("nome");
+            String telefone = doc.getString("telefone");
+
+            System.out.printf("%s | %s%n", nome, telefone);
         }
     }
 
@@ -71,8 +81,12 @@ public class Connection {
         String novoTel = scanner.nextLine();
 
         Document updates = new Document();
-        if (!novoNome.isBlank()) updates.append("nome", novoNome);
-        if (!novoTel.isBlank()) updates.append("telefone", novoTel);
+        if (!novoNome.isBlank()) {
+            updates.append("nome", novoNome);
+        }
+        if (!novoTel.isBlank()) {
+            updates.append("telefone", novoTel);
+        }
         if (updates.isEmpty()) {
             System.out.println("Nada para alterar.");
             return;
@@ -86,8 +100,8 @@ public class Connection {
         String nome = scanner.nextLine();
         long deleted = collection.deleteOne(eq("nome", nome)).getDeletedCount();
         System.out.println(deleted > 0
-            ? "Contato deletado!"
-            : "Contato não encontrado.");
+                ? "Contato deletado!"
+                : "Contato não encontrado.");
     }
 
     void fechar() {
