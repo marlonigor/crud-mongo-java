@@ -1,4 +1,4 @@
-package com.mycompany.crud_mongo;
+package com.mycompany.dao;
 
 import com.mongodb.client.*;
 import org.bson.Document;
@@ -46,7 +46,7 @@ public class Connection {
         fechar();
     }
 
-    void adicionarContato() {
+    public void adicionarContato() {
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
         System.out.print("Telefone: ");
@@ -57,7 +57,7 @@ public class Connection {
         System.out.println("Contato adicionado: " + doc.getObjectId("_id"));
     }
 
-    void listarContatos() {
+    public void listarContatos() {
         System.out.println("\n--- Contatos ---");
         for (Document doc : collection.find()) {
             String nome = doc.getString("nome");
@@ -67,12 +67,12 @@ public class Connection {
         }
     }
 
-    void atualizarContato() {
+    public void atualizarContato() {
         System.out.print("Nome do contato a atualizar: ");
         String nome = scanner.nextLine();
         Document existente = collection.find(eq("nome", nome)).first();
         if (existente == null) {
-            System.out.println("Contato não encontrado.");
+            System.out.println("Contato nao encontrado.");
             return;
         }
         System.out.print("Novo nome (enter = não altera): ");
@@ -95,19 +95,19 @@ public class Connection {
         System.out.println("Contato atualizado!");
     }
 
-    void deletarContato() {
+    public void deletarContato() {
         System.out.print("Nome do contato a deletar: ");
         String nome = scanner.nextLine();
         long deleted = collection.deleteOne(eq("nome", nome)).getDeletedCount();
         System.out.println(deleted > 0
                 ? "Contato deletado!"
-                : "Contato não encontrado.");
+                : "Contato nao encontrado.");
     }
 
-    void fechar() {
+    public void fechar() {
         scanner.close();
         mongoClient.close();
-        System.out.println("Conexão fechada. Tchau, parça!");
+        System.out.println("Conexao encerrada!");
     }
 
     public static void main(String[] args) {
