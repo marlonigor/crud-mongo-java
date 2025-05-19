@@ -1,6 +1,6 @@
-# CRUD - Java + MongoD
+# CRUD - Java + MongoDB
 
-> Um sistema simples de gerenciamento de contatos (Agenda Pessoal)  
+Um sistema simples de gerenciamento de contatos (Agenda Pessoal)  
 
 ## Funcionalidades
 
